@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Registro</title>
+    </h:head>
+    <h:body>
+        <ui:include src="/header.xhtml" />
+        
+        <h:form>
+            <p:panelGrid style="position: fixed; top: 35%; left: 50%; transform: translate(-50%, -50%);">
+                
+                <p:row>
+                    <p:column><p:outputLabel for="nombre" value="Nombre" /></p:column>
+                    <p:column><p:inputText id="nombre" value="#{registro.usuarioARegistrar.nombre}"/></p:column>
+                </p:row>
+                
+                <p:row>
+                    <p:column><p:outputLabel for="ape" value="Apellidos" /></p:column>
+                    <p:column><p:inputText id="ape" value="#{registro.usuarioARegistrar.apellidos}"/></p:column>
+                </p:row>
+                
+                <p:row>
+                    <p:column><p:outputLabel for="username" value="Usuario" /></p:column>
+                    <p:column><p:inputText id="username" value="#{registro.usuarioARegistrar.username}"/></p:column>
+                </p:row>
+                
+                <p:row>
+                    <p:column><p:outputLabel for="pass" value="Contraseña" /></p:column>
+                    <p:column><p:password id="pass" value="#{registro.usuarioARegistrar.pass}"/></p:column>
+                </p:row>
+                
+                <p:row>
+                    <p:column><p:outputLabel for="correo" value="Correo" /></p:column>
+                    <p:column><p:inputText id="correo" value="#{registro.usuarioARegistrar.email}"/></p:column>
+                </p:row>
+                
+                <p:row>
+                    <p:column colspan="2"><p:commandButton style="width: 100%;" ajax="false" value="Registrarse" action="#{registro.registrar()}"/></p:column>
+                </p:row>
+                
+            </p:panelGrid>
+            <p:outputLabel value="#{registro.error}" style="color: red; position: fixed; top: 60%; left: 50%; transform: translate(-50%, -50%);"/>
+        </h:form>
+    </h:body>
+</html>
+

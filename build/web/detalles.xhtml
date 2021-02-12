@@ -1,0 +1,55 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+        
+        <div style="padding-top: 10px;">  
+            <p:panelGrid rendered="#{fotos.imagenSelec ne null}" >
+                <p:row>
+                    <p:column>
+                        <p:panelGrid columns="1">
+                            <f:facet name="header">
+                                <h:outputText value="#{fotos.imagenSelec.titulo}"/>
+                                <h:form>
+                                    <p:commandLink ajax="false" value="#{fotos.imagenSelec.nusuario}" action="#{fotos.fotosDe()}"/>
+                                </h:form>
+                            </f:facet>
+
+                            <p:graphicImage name="images/#{fotos.imagenSelec.narchivo}" width="500" height="400"/>
+                            <p:outputLabel value="#{fotos.imagenSelec.descripcion}"/>
+                        </p:panelGrid>
+                    </p:column>
+                
+                    <p:column style="vertical-align: top;">
+                        <p:dataList value="#{fotos.comentarios}" var="comentario" type="ordered" style="margin-top: 10px; margin-bottom: 20px;">
+                            <f:facet name="header">
+                                Comentarios
+                            </f:facet>
+                            <b>#{comentario.comentario}</b> - #{comentario.nusuario} 
+                            <p:outputLabel value="#{comentario.fechacom}">
+                                <f:convertDateTime pattern="dd-MM-yyyy"/>
+                            </p:outputLabel>
+                        </p:dataList>
+
+                        <p:outputLabel value="Solo puedes comentar estando logueado." rendered="#{dataSession.usuarioSesion eq null and fotos.imagenSelec ne null}"/>
+                        <p:outputLabel value="La foto es tuya, no puedes comentar en tu propia foto." rendered="#{fotos.imagenSelec ne null and dataSession.usuarioSesion.iduser eq fotos.imagenSelec.iduser}"/>
+                    </p:column>
+                </p:row>
+                <p:row rendered="#{dataSession.usuarioSesion ne null}">
+                    <p:column colspan="2">
+                        <h:form rendered="#{dataSession.usuarioSesion ne null and dataSession.usuarioSesion.iduser ne fotos.imagenSelec.iduser and fotos.imagenSelec ne null}" style="margin-top: 10px; margin-bottom: 20px;">
+                            <h3>Deja tu comentario</h3>
+                            <p:inputTextarea rows="6" cols="100" value="#{fotos.comentario}"/><br></br>
+                            <p:commandButton ajax="false" value="COMENTAR" action="#{fotos.comentar()}"/>
+                        </h:form>
+
+                        <h:form rendered="#{dataSession.usuarioSesion ne null and dataSession.usuarioSesion.iduser eq fotos.imagenSelec.iduser and fotos.imagenSelec ne null}">
+                            <p:commandButton ajax="false" value="ELIMINAR FOTO" action="#{fotos.eliminar()}" style="left: 40%;"/>
+                        </h:form>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+        </div>
+</ui:composition>

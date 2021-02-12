@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Index</title>
+    </h:head>
+    <h:body>
+        <ui:include src="/header.xhtml" />
+        
+        <div style="padding-top: 10px;">
+            <h:form id="form">                             
+                <p:carousel value="#{fotos.imagenes}" headerText="Fotos (#{fotos.nusuario})" var="foto" itemStyle="text-align:center" style=" left: 25%;">
+                    <p:panelGrid columns="1" style="width:100%;margin:10px 0px" columnClasses="label,value" styleClass="ui-panelgrid-blank">
+                        <p:commandLink ajax="false" action="#{fotos.imagenSelec(foto)}">
+                            <p:graphicImage name="images/#{foto.narchivo}" width="165" height="120"/> 
+                        </p:commandLink>
+                        <h:outputText value="#{foto.titulo}" />
+                    </p:panelGrid>
+                </p:carousel>
+            </h:form>
+        </div>
+        
+        <ui:include src="/detalles.xhtml" rendered="#{fotos.imagenSelec ne null}"/>
+        
+    </h:body>
+</html>
+
